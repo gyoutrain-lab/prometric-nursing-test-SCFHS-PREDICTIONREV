@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SCFHS Prometric Pass Prediction Exam</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h2, h3 {
+  margin-top: 30px;
+}
+
+.question {
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BUTTON */
+button {
+  padding: 10px 18px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* HEATMAP */
+#heatmap {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+  max-width: 520px;
+  margin-top: 20px;
+}
+
+.heat {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.correct { background: #2ecc71; }
+.wrong { background: #e74c3c; }
+.unanswered { background: #bdc3c7; }
+
+/* TOOLTIP */
+.heat:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 6px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  white-space: pre-line;
+  width: 190px;
+  z-index: 10;
+}
+
+.heat:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #222 transparent transparent transparent;
+}
+</style>
+</head>
+
+<body>
+
+<h2>SCFHS Prometric Pass Prediction Exam</h2>
+
+<label>Candidate Name:
+  <input type="text" id="name">
+</label><br><br>
+
+<label>Candidate ID:
+  <input type="text" id="id">
+</label>
+
+<hr>
+
+<!-- ================= QUESTIONS ================= -->
+
+<div id="exam">
+<!-- ================= Q1–Q20 ================= -->
+
+<div class="question">
+<b>Q1. A 68-year-old male admitted with pneumonia suddenly becomes restless. BP 88/54, HR 124, RR 30, SpO₂ 89% on room air. What is the nurse’s PRIORITY action?</b><br>
+<label><input type="radio" name="q1" value="1"> Apply oxygen via non-rebreather mask</label><br>
+<label><input type="radio" name="q1" value="0"> Reassess vital signs in 15 minutes</label><br>
+<label><input type="radio" name="q1" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q1" value="0"> Document findings</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Fail-fast hypoxia + hypotension. ABC → Airway/Breathing before notification or documentation.
+</div>
+</div>
+
+<div class="question">
+<b>Q2. A postoperative patient reports sudden chest pain and shortness of breath. SpO₂ is 86%. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q2" value="1"> Elevate head of bed and apply oxygen</label><br>
+<label><input type="radio" name="q2" value="0"> Call the physician immediately</label><br>
+<label><input type="radio" name="q2" value="0"> Obtain ECG</label><br>
+<label><input type="radio" name="q2" value="0"> Administer prescribed analgesic</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+SCFHS prioritizes immediate oxygenation before diagnostics or notification.
+</div>
+</div>
+
+<div class="question">
+<b>Q3. A diabetic patient is confused and diaphoretic. Capillary glucose is 42 mg/dL. What is the MOST appropriate action?</b><br>
+<label><input type="radio" name="q3" value="1"> Administer IV dextrose</label><br>
+<label><input type="radio" name="q3" value="0"> Recheck blood glucose</label><br>
+<label><input type="radio" name="q3" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q3" value="0"> Document findings</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Life-threatening hypoglycemia → treat immediately. Assessment or documentation = delay trap.
+</div>
+</div>
+
+<div class="question">
+<b>Q4. A patient with sepsis has BP 90/50, HR 118, urine output 15 mL/hr. What does the nurse do FIRST?</b><br>
+<label><input type="radio" name="q4" value="1"> Initiate IV fluid resuscitation</label><br>
+<label><input type="radio" name="q4" value="0"> Measure central venous pressure</label><br>
+<label><input type="radio" name="q4" value="0"> Notify physician</label><br>
+<label><input type="radio" name="q4" value="0"> Document intake and output</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Circulation failure → perfusion before protocol or reporting.
+</div>
+</div>
+
+<div class="question">
+<b>Q5. A patient suddenly becomes unresponsive. No pulse is felt. What is the nurse’s IMMEDIATE action?</b><br>
+<label><input type="radio" name="q5" value="1"> Begin CPR</label><br>
+<label><input type="radio" name="q5" value="0"> Call code team</label><br>
+<label><input type="radio" name="q5" value="0"> Check blood pressure</label><br>
+<label><input type="radio" name="q5" value="0"> Document event</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+SCFHS fail-fast: action before activation or documentation.
+</div>
+</div>
+
+<div class="question">
+<b>Q6. A patient receiving IV potassium reports burning at the IV site. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q6" value="1"> Stop the infusion</label><br>
+<label><input type="radio" name="q6" value="0"> Slow the infusion rate</label><br>
+<label><input type="radio" name="q6" value="0"> Reassure the patient</label><br>
+<label><input type="radio" name="q6" value="0"> Document complaint</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Medication safety → stop before adjusting or documenting.
+</div>
+</div>
+
+<div class="question">
+<b>Q7. A confused elderly patient tries to climb out of bed. What is the BEST nursing action?</b><br>
+<label><input type="radio" name="q7" value="1"> Stay with the patient and ensure safety</label><br>
+<label><input type="radio" name="q7" value="0"> Apply physical restraints</label><br>
+<label><input type="radio" name="q7" value="0"> Administer sedative</label><br>
+<label><input type="radio" name="q7" value="0"> Call family members</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Least restrictive + immediate safety = SCFHS ethics tie-breaker.
+</div>
+</div>
+
+<div class="question">
+<b>Q8. A patient’s respiratory rate drops to 8/min after opioid administration. What is the PRIORITY action?</b><br>
+<label><input type="radio" name="q8" value="1"> Administer naloxone</label><br>
+<label><input type="radio" name="q8" value="0"> Stimulate the patient</label><br>
+<label><input type="radio" name="q8" value="0"> Document side effect</label><br>
+<label><input type="radio" name="q8" value="0"> Reassess in 10 minutes</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Fail-fast respiratory depression → reversal before observation.
+</div>
+</div>
+
+<div class="question">
+<b>Q9. A patient reports sudden severe headache and unequal pupils. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q9" value="1"> Notify physician immediately</label><br>
+<label><input type="radio" name="q9" value="0"> Administer analgesic</label><br>
+<label><input type="radio" name="q9" value="0"> Reassess in 30 minutes</label><br>
+<label><input type="radio" name="q9" value="0"> Document findings</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Neurological fail-fast → rapid escalation.
+</div>
+</div>
+
+<div class="question">
+<b>Q10. A patient receiving blood transfusion develops fever and chills. What is the FIRST nursing action?</b><br>
+<label><input type="radio" name="q10" value="1"> Stop the transfusion</label><br>
+<label><input type="radio" name="q10" value="0"> Administer antipyretic</label><br>
+<label><input type="radio" name="q10" value="0"> Slow infusion rate</label><br>
+<label><input type="radio" name="q10" value="0"> Document reaction</label>
+<div class="rationale" style="display:none;">
+<b>Trainer Review:</b><br>
+Blood reaction = immediate stop. Classic SCFHS fail-fast.
+</div>
+</div>
+
+<!-- Q11–Q20 CONTINUE SAME LOGIC -->
+
+</script>
+
+</div>
+
+<button type="button" onclick="submitExam()">Submit Exam</button>
+
+<h3>Item-Level Performance Heatmap (Q1–Q100)</h3>
+<div id="heatmap"></div>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+const rationales = {
+  1: "Fail-Fast: Abnormal vital signs ignored.",
+  2: "Tie-breaker: Time priority missed.",
+  3: "Medication safety logic violated.",
+  4: "Delegation trap: RN action required.",
+  5: "ABC breach: Airway not prioritized.",
+
+  41: "Calculation error → unsafe IV rate.",
+  42: "Fluid overload risk missed.",
+  61: "Ethical delay causes patient harm.",
+  81: "Tie-breaker: vital trend beats symptoms."
+};
+
+function submitExam() {
+  const heatmap = document.getElementById("heatmap");
+  heatmap.innerHTML = "";
+
+  for (let i = 1; i <= 100; i++) {
+    const answers = document.getElementsByName("q" + i);
+    let status = "unanswered";
+
+    for (let a of answers) {
+      if (a.checked) {
+        status = (a.value === "1") ? "correct" : "wrong";
+      }
+    }
+
+    const cell = document.createElement("div");
+    cell.className = "heat " + status;
+    cell.innerText = "Q" + i;
+
+    const tip =
+      rationales[i]
+        ? rationales[i]
+        : "No mapped rationale.\nTrainer review required.";
+
+    cell.setAttribute(
+      "data-tip",
+      "Status: " + status.toUpperCase() + "\n" + tip
+    );
+
+    heatmap.appendChild(cell);
+  }
+}
+</script>
+
+</body>
+</html>
+
