@@ -73,6 +73,68 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q5" value="0"> Call the family</label><br>
 <label><input type="radio" name="q5" value="0"> Prepare emergency drugs</label>
 </div>
+<!-- ================= Q6–Q10 ================= -->
+
+<div class="question">
+<b>Q6. A patient with sepsis has urine output of 20 mL/hr for 2 hours. BP is 92/58. What does this finding indicate?</b><br>
+<label><input type="radio" name="q6" value="1"> Inadequate tissue perfusion</label><br>
+<label><input type="radio" name="q6" value="0"> Normal renal adaptation</label><br>
+<label><input type="radio" name="q6" value="0"> Expected response to antibiotics</label><br>
+<label><input type="radio" name="q6" value="0"> No immediate concern</label>
+</div>
+
+<!-- Rationale embedded for heatmap tooltip after submit -->
+<script>
+rationales['q6'] = "This low urine output with hypotension indicates decreased renal perfusion due to sepsis-related hypoperfusion. Immediate intervention is required to prevent acute kidney injury.";
+</script>
+
+<div class="question">
+<b>Q7. A patient receiving morphine IV becomes difficult to arouse. RR is 8/min. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q7" value="1"> Support airway and breathing</label><br>
+<label><input type="radio" name="q7" value="0"> Document sedation level</label><br>
+<label><input type="radio" name="q7" value="0"> Reassess in 30 minutes</label><br>
+<label><input type="radio" name="q7" value="0"> Call the physician</label>
+</div>
+
+<script>
+rationales['q7'] = "Morphine overdose can depress respiration. Priority is airway support and monitoring breathing, followed by naloxone if necessary.";
+</script>
+
+<div class="question">
+<b>Q8. A trauma patient arrives confused with unequal pupils. What should the nurse do first?</b><br>
+<label><input type="radio" name="q8" value="1"> Ensure airway and cervical spine protection</label><br>
+<label><input type="radio" name="q8" value="0"> Obtain consent</label><br>
+<label><input type="radio" name="q8" value="0"> Perform a full neurological exam</label><br>
+<label><input type="radio" name="q8" value="0"> Contact family</label>
+</div>
+
+<script>
+rationales['q8'] = "Trauma patients with unequal pupils may have raised ICP. Priority is airway and cervical spine protection to prevent secondary injury.";
+</script>
+
+<div class="question">
+<b>Q9. A patient complains of chest pain radiating to the left arm. BP 150/90, HR 104. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q9" value="1"> Administer oxygen and assess ECG</label><br>
+<label><input type="radio" name="q9" value="0"> Give antacid</label><br>
+<label><input type="radio" name="q9" value="0"> Encourage rest</label><br>
+<label><input type="radio" name="q9" value="0"> Document pain scale</label>
+</div>
+
+<script>
+rationales['q9'] = "Chest pain radiating to left arm suggests possible myocardial infarction. Oxygen and ECG assessment are immediate priorities to prevent cardiac compromise.";
+</script>
+
+<div class="question">
+<b>Q10. A postoperative patient has saturated the dressing within 20 minutes. What should the nurse do first?</b><br>
+<label><input type="radio" name="q10" value="1"> Apply pressure and assess bleeding</label><br>
+<label><input type="radio" name="q10" value="0"> Change the dressing</label><br>
+<label><input type="radio" name="q10" value="0"> Notify the surgeon</label><br>
+<label><input type="radio" name="q10" value="0"> Document findings</label>
+</div>
+
+<script>
+rationales['q10'] = "Rapidly saturated dressing indicates active hemorrhage. Priority is applying pressure to control bleeding, then assessing patient stability and notifying surgeon.";
+</script>
 
 <button type="button" onclick="submitExam()">Submit</button>
 
