@@ -2,40 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SCFHS Prometric Pass Prediction Exam</title>
+<title>SCFHS Prometric Exam</title>
 <style>
 body { font-family: Arial, sans-serif; margin: 20px; }
-h2, h3 { margin-top: 30px; }
+h2 { margin-bottom: 15px; }
 .question { margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
 button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 #heatmap { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 520px; margin-top: 20px; }
-.heat { padding: 10px 0; text-align: center; font-size: 12px; font-weight: bold; border-radius: 4px; color: #fff; position: relative; cursor: pointer; }
-.correct { background: #2ecc71; }
-.wrong { background: #e74c3c; }
-.unanswered { background: #bdc3c7; }
+.heat { padding: 10px 0; text-align: center; font-size: 12px; font-weight: bold; border-radius: 4px; color: #fff; position: relative; cursor: pointer; background: #bdc3c7; } /* pale gray before submit */
 .heat:hover::after {
   content: attr(data-tip);
   position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
   background: #222; color: #fff; padding: 6px 8px; font-size: 11px; border-radius: 4px;
   white-space: pre-line; width: 220px; z-index: 10;
+  display: none; /* hide before submit */
 }
+.heat.show::after { display: block; }
 .heat:hover::before {
   content: "";
   position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
   border-width: 6px; border-style: solid;
   border-color: #222 transparent transparent transparent;
 }
+.correct { background: #2ecc71; }
+.wrong { background: #e74c3c; }
 </style>
 </head>
 <body>
 
 <h2>SCFHS Prometric Pass Prediction Exam</h2>
 
-<label>Candidate Name: <input type="text" id="name"></label><br><br>
-<label>Candidate ID: <input type="text" id="id"></label>
-<hr>
-
-<div id="exam">
+<form id="examForm">
 
 <div class="question">
 <b>Q1. A 68-year-old male admitted with pneumonia suddenly becomes restless. BP 88/54, HR 124, RR 30, SpO₂ 89% on room air. What is the nurse’s PRIORITY action?</b><br>
@@ -77,16 +74,37 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q5" value="0"> Prepare emergency drugs</label>
 </div>
 
-</div>
+<button type="button" onclick="submitExam()">Submit</button>
+
+</form>
 
 <!-- ================= HEATMAP ================= -->
 <div id="heatmap">
-  <div class="heat correct" data-tip="Q1 Rationale: Patient shows hypoxia and hypotension. Priority is to improve oxygenation immediately before other interventions.">1</div>
-  <div class="heat correct" data-tip="Q2 Rationale: Post-op hypotension and tachycardia indicate decreased perfusion. Supine position optimizes cerebral perfusion and safety.">2</div>
-  <div class="heat correct" data-tip="Q3 Rationale: Sudden SOB with crackles and low SpO₂ indicates fluid overload or pulmonary edema. Stopping IV and elevating head improves oxygenation.">3</div>
-  <div class="heat correct" data-tip="Q4 Rationale: Hypoglycemia with neuro symptoms is a medical emergency. Rapid-acting glucose is immediate treatment.">4</div>
-  <div class="heat correct" data-tip="Q5 Rationale: Unresponsive patient with no pulse requires immediate CPR according to ACLS guidelines.">5</div>
+  <div class="heat" data-tip="Q1 Rationale: Patient shows hypoxia and hypotension. Priority is to improve oxygenation immediately before other interventions.">1</div>
+  <div class="heat" data-tip="Q2 Rationale: Post-op hypotension and tachycardia indicate decreased perfusion. Supine position optimizes cerebral perfusion and safety.">2</div>
+  <div class="heat" data-tip="Q3 Rationale: Sudden SOB with crackles and low SpO₂ indicates fluid overload or pulmonary edema. Stopping IV and elevating head improves oxygenation.">3</div>
+  <div class="heat" data-tip="Q4 Rationale: Hypoglycemia with neuro symptoms is a medical emergency. Rapid-acting glucose is immediate treatment.">4</div>
+  <div class="heat" data-tip="Q5 Rationale: Unresponsive patient with no pulse requires immediate CPR according to ACLS guidelines.">5</div>
 </div>
+
+<script>
+const answers = {q1:1, q2:1, q3:1, q4:1, q5:1};
+
+function submitExam() {
+  const form = document.getElementById('examForm');
+  Object.keys(answers).forEach((q, index) => {
+    const userAnswer = form[q].value;
+    const heat = document.querySelectorAll('#heatmap .heat')[index];
+    if(userAnswer === answers[q].toString()) {
+      heat.classList.add('correct');
+    } else {
+      heat.classList.add('wrong');
+    }
+    heat.classList.add('show'); // allow tooltip to show after submit
+  });
+  alert('Your exam has been submitted. Click on heatmap squares to view rationale.');
+}
+</script>
 
 </body>
 </html>
