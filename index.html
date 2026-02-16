@@ -2,93 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SCFHS Prometric Pass Prediction Exam - Full 100 Questions</title>
+<title>SCFHS Prometric Pass Prediction Exam</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
+body { font-family: Arial, sans-serif; margin: 20px; }
 h2, h3 { margin-top: 30px; }
 .question { margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
-
-/* BUTTON */
 button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
-
-/* HEATMAP */
-#heatmap {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 6px;
-  max-width: 520px;
-  margin-top: 20px;
-}
-
-.heat {
-  padding: 10px 0;
-  text-align: center;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 4px;
-  color: #fff;
-  position: relative;
-  cursor: pointer;
-}
-
+#heatmap { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 520px; margin-top: 20px; }
+.heat { padding: 10px 0; text-align: center; font-size: 12px; font-weight: bold; border-radius: 4px; color: #fff; position: relative; cursor: pointer; }
 .correct { background: #2ecc71; }
 .wrong { background: #e74c3c; }
 .unanswered { background: #bdc3c7; }
-
-/* TOOLTIP */
 .heat:hover::after {
   content: attr(data-tip);
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  padding: 6px 8px;
-  font-size: 11px;
-  border-radius: 4px;
-  white-space: pre-line;
-  width: 220px;
-  z-index: 10;
+  position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+  background: #222; color: #fff; padding: 6px 8px; font-size: 11px; border-radius: 4px;
+  white-space: pre-line; width: 220px; z-index: 10;
 }
-
 .heat:hover::before {
   content: "";
-  position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
+  position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+  border-width: 6px; border-style: solid;
   border-color: #222 transparent transparent transparent;
 }
 </style>
 </head>
 <body>
 
-<h2>SCFHS Prometric Pass Prediction Exam (100 Questions)</h2>
+<h2>SCFHS Prometric Pass Prediction Exam</h2>
 
 <label>Candidate Name: <input type="text" id="name"></label><br><br>
 <label>Candidate ID: <input type="text" id="id"></label>
 <hr>
 
-<!-- ================= QUESTIONS ================= -->
 <div id="exam">
 
-<!-- Example Question Template -->
-<!-- Q1 -->
 <div class="question">
-<b>Q1. A 68-year-old male with pneumonia suddenly becomes restless. BP 88/54, HR 124, RR 30, SpO₂ 89% on room air. What is the nurse’s PRIORITY action?</b><br>
+<b>Q1. A 68-year-old male admitted with pneumonia suddenly becomes restless. BP 88/54, HR 124, RR 30, SpO₂ 89% on room air. What is the nurse’s PRIORITY action?</b><br>
 <label><input type="radio" name="q1" value="1"> Apply oxygen via non-rebreather mask</label><br>
 <label><input type="radio" name="q1" value="0"> Reassess vital signs in 15 minutes</label><br>
 <label><input type="radio" name="q1" value="0"> Notify the physician</label><br>
 <label><input type="radio" name="q1" value="0"> Document findings</label>
 </div>
 
-<!-- Q2 -->
 <div class="question">
 <b>Q2. A postoperative patient reports dizziness. BP dropped from 118/76 to 90/60 in 30 minutes. HR 112. What should the nurse do first?</b><br>
 <label><input type="radio" name="q2" value="1"> Place the patient supine and assess perfusion</label><br>
@@ -97,7 +53,6 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q2" value="0"> Recheck blood pressure later</label>
 </div>
 
-<!-- Q3 -->
 <div class="question">
 <b>Q3. A patient receiving IV fluids develops sudden shortness of breath and crackles. SpO₂ is 86%. What is the immediate nursing action?</b><br>
 <label><input type="radio" name="q3" value="1"> Stop the infusion and elevate the head of bed</label><br>
@@ -106,7 +61,6 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q3" value="0"> Monitor lung sounds</label>
 </div>
 
-<!-- Q4 -->
 <div class="question">
 <b>Q4. A diabetic patient is confused and diaphoretic. Capillary glucose is 42 mg/dL. What is the nurse’s priority?</b><br>
 <label><input type="radio" name="q4" value="1"> Administer rapid-acting glucose</label><br>
@@ -115,7 +69,6 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q4" value="0"> Document findings</label>
 </div>
 
-<!-- Q5 -->
 <div class="question">
 <b>Q5. A patient suddenly becomes unresponsive. No carotid pulse is palpable. What should the nurse do first?</b><br>
 <label><input type="radio" name="q5" value="1"> Begin chest compressions</label><br>
@@ -124,31 +77,16 @@ button { padding: 10px 18px; font-size: 16px; margin-top: 20px; }
 <label><input type="radio" name="q5" value="0"> Prepare emergency drugs</label>
 </div>
 
-<!-- Add Q6 to Q100 similarly (omitted for brevity in this snippet) -->
-
 </div>
 
 <!-- ================= HEATMAP ================= -->
-<h3>Click a box to see question rationale:</h3>
 <div id="heatmap">
-<!-- Example heatmap 1-10 -->
-<div class="heat correct" data-tip="Q1 Rationale: Oxygen administration is the priority due to hypoxemia and low SpO2. Stabilizing oxygenation prevents further deterioration.">1</div>
-<div class="heat correct" data-tip="Q2 Rationale: Supine positioning improves perfusion in hypotensive patients; immediate assessment is critical.">2</div>
-<div class="heat correct" data-tip="Q3 Rationale: Stopping IV and elevating the head prevents fluid overload worsening; oxygenation prioritized.">3</div>
-<div class="heat correct" data-tip="Q4 Rationale: Immediate glucose correction treats hypoglycemia; delaying can lead to seizure or coma.">4</div>
-<div class="heat correct" data-tip="Q5 Rationale: No pulse = cardiac arrest; start compressions immediately per ACLS protocol.">5</div>
-<div class="heat correct" data-tip="Q6 Rationale: Low urine output + hypotension indicates poor tissue perfusion; assessment is priority.">6</div>
-<div class="heat correct" data-tip="Q7 Rationale: Respiratory depression from morphine is life-threatening; airway support comes first.">7</div>
-<div class="heat correct" data-tip="Q8 Rationale: Airway protection and cervical spine immobilization prevent further injury in trauma patient.">8</div>
-<div class="heat correct" data-tip="Q9 Rationale: Suspected ACS requires oxygen and ECG monitoring; prompt assessment reduces infarct risk.">9</div>
-<div class="heat correct" data-tip="Q10 Rationale: Rapid bleeding requires immediate pressure and assessment to prevent shock.">10</div>
-
-<!-- Add heatmap 11-100 with each rationale -->
+  <div class="heat correct" data-tip="Q1 Rationale: Patient shows hypoxia and hypotension. Priority is to improve oxygenation immediately before other interventions.">1</div>
+  <div class="heat correct" data-tip="Q2 Rationale: Post-op hypotension and tachycardia indicate decreased perfusion. Supine position optimizes cerebral perfusion and safety.">2</div>
+  <div class="heat correct" data-tip="Q3 Rationale: Sudden SOB with crackles and low SpO₂ indicates fluid overload or pulmonary edema. Stopping IV and elevating head improves oxygenation.">3</div>
+  <div class="heat correct" data-tip="Q4 Rationale: Hypoglycemia with neuro symptoms is a medical emergency. Rapid-acting glucose is immediate treatment.">4</div>
+  <div class="heat correct" data-tip="Q5 Rationale: Unresponsive patient with no pulse requires immediate CPR according to ACLS guidelines.">5</div>
 </div>
-
-<script>
-// Optional JS to handle any additional logic if needed
-</script>
 
 </body>
 </html>
