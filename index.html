@@ -5,7 +5,14 @@
 <title>SCFHS Prometric Pass Prediction Exam</title>
 
 <style>
-body { font-family: Arial, sans-serif; margin: 20px; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h2, h3 {
+  margin-top: 30px;
+}
 
 .question {
   margin-bottom: 18px;
@@ -13,6 +20,7 @@ body { font-family: Arial, sans-serif; margin: 20px; }
   border-bottom: 1px solid #ddd;
 }
 
+/* BUTTON */
 button {
   padding: 10px 18px;
   font-size: 16px;
@@ -35,6 +43,7 @@ button {
   font-weight: bold;
   border-radius: 4px;
   color: #fff;
+  position: relative;
   cursor: pointer;
 }
 
@@ -42,31 +51,109 @@ button {
 .wrong { background: #e74c3c; }
 .unanswered { background: #bdc3c7; }
 
-/* TRAINER REVIEW */
-#trainerReview {
-  margin-top: 30px;
-  padding: 15px;
-  border: 2px solid #333;
-  display: none;
+/* TOOLTIP */
+.heat:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 6px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  white-space: pre-line;
+  width: 190px;
+  z-index: 10;
+}
+
+.heat:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #222 transparent transparent transparent;
 }
 </style>
 </head>
+<script>
+const rationales = {
+  q1: {
+    title: "Q1 – Priority Action (Septic Shock)",
+    text: "Correct: Apply oxygen via non-rebreather mask.\n\nRationale:\nThis patient shows signs of shock (hypotension, tachycardia, hypoxia). According to ABCs, oxygenation is the FIRST priority.\n\nWhy others are wrong:\n• Reassessing or documenting delays life-saving intervention.\n• Physician notification comes AFTER stabilizing airway and breathing."
+  },
+
+  q2: {
+    title: "Q2 – Postoperative Hypotension",
+    text: "Correct: Place patient supine and assess perfusion.\n\nRationale:\nA sudden BP drop with tachycardia suggests hypovolemia or bleeding. Positioning improves venous return while assessing circulation.\n\nTrap:\nPain medication or fluids are not initiated before stabilizing circulation."
+  },
+
+  q3: {
+    title: "Q3 – Fluid Overload",
+    text: "Correct: Stop infusion and elevate head of bed.\n\nRationale:\nAcute crackles and hypoxia indicate pulmonary edema. Immediate action is to stop the cause and improve ventilation.\n\nPrometric Rule:\nRemove the threat FIRST before calling the provider."
+  },
+
+  q4: {
+    title: "Q4 – Hypoglycemia",
+    text: "Correct: Administer rapid-acting glucose.\n\nRationale:\nBlood glucose of 42 mg/dL is life-threatening. Treatment must not be delayed.\n\nCommon Error:\nCalling the physician wastes critical time."
+  },
+
+  q5: {
+    title: "Q5 – Cardiac Arrest",
+    text: "Correct: Begin chest compressions.\n\nRationale:\nUnresponsive with no pulse = cardiac arrest. CPR begins immediately.\n\nPrometric Anchor:\nNo pulse = compressions, no exceptions."
+  },
+
+  q6: {
+    title: "Q6 – Sepsis Perfusion",
+    text: "Correct: Inadequate tissue perfusion.\n\nRationale:\nUrine output <30 mL/hr indicates renal hypoperfusion, a hallmark of septic shock."
+  },
+
+  q7: {
+    title: "Q7 – Opioid Overdose",
+    text: "Correct: Support airway and breathing.\n\nRationale:\nRespiratory rate of 8/min is dangerous. Airway comes before documentation or notification."
+  },
+
+  q8: {
+    title: "Q8 – Trauma Priority",
+    text: "Correct: Ensure airway and cervical spine protection.\n\nRationale:\nIn trauma, ABCs override neurological exams or consent."
+  },
+
+  q9: {
+    title: "Q9 – Suspected MI",
+    text: "Correct: Administer oxygen and assess ECG.\n\nRationale:\nChest pain with radiation = possible MI. Oxygen and cardiac monitoring are immediate priorities."
+  },
+
+  q10: {
+    title: "Q10 – Postoperative Bleeding",
+    text: "Correct: Apply pressure and assess bleeding.\n\nRationale:\nRapid dressing saturation suggests hemorrhage. Pressure is immediate life-saving action."
+  }
+
+  // 👉 Continue same pattern for q11–q100
+};
+</script>
 
 <body>
 
 <h2>SCFHS Prometric Pass Prediction Exam</h2>
 
 <label>Candidate Name:
-  <input type="text">
+  <input type="text" id="name">
 </label><br><br>
 
 <label>Candidate ID:
-  <input type="text">
+  <input type="text" id="id">
 </label>
 
 <hr>
 
-<!-- ================= EXAM ================= -->
+<!-- ================= QUESTIONS ================= -->
+
+<div id="exam">
+
 <div id="exam">
 
 <div class="question">
@@ -76,30 +163,827 @@ button {
 <label><input type="radio" name="q1" value="0"> Notify the physician</label><br>
 <label><input type="radio" name="q1" value="0"> Document findings</label>
 </div>
+   
+<div class="question">
+<b>Q2. A postoperative patient reports dizziness. BP dropped from 118/76 to 90/60 in 30 minutes. HR 112. What should the nurse do first?</b><br>
+<label><input type="radio" name="q2" value="1"> Place the patient supine and assess perfusion</label><br>
+<label><input type="radio" name="q2" value="0"> Administer prescribed analgesic</label><br>
+<label><input type="radio" name="q2" value="0"> Encourage oral fluids</label><br>
+<label><input type="radio" name="q2" value="0"> Recheck blood pressure later</label>
+</div>
 
-<!-- Q2–Q100 CONTINUE SAME FORMAT -->
+<div class="question">
+<b>Q3. A patient receiving IV fluids develops sudden shortness of breath and crackles. SpO₂ is 86%. What is the immediate nursing action?</b><br>
+<label><input type="radio" name="q3" value="1"> Stop the infusion and elevate the head of bed</label><br>
+<label><input type="radio" name="q3" value="0"> Reduce IV rate</label><br>
+<label><input type="radio" name="q3" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q3" value="0"> Monitor lung sounds</label>
+</div>
+
+<div class="question">
+<b>Q4. A diabetic patient is confused and diaphoretic. Capillary glucose is 42 mg/dL. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q4" value="1"> Administer rapid-acting glucose</label><br>
+<label><input type="radio" name="q4" value="0"> Call the physician</label><br>
+<label><input type="radio" name="q4" value="0"> Start IV fluids</label><br>
+<label><input type="radio" name="q4" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q5. A patient suddenly becomes unresponsive. No carotid pulse is palpable. What should the nurse do first?</b><br>
+<label><input type="radio" name="q5" value="1"> Begin chest compressions</label><br>
+<label><input type="radio" name="q5" value="0"> Check blood pressure</label><br>
+<label><input type="radio" name="q5" value="0"> Call the family</label><br>
+<label><input type="radio" name="q5" value="0"> Prepare emergency drugs</label>
+</div>
+
+<div class="question">
+<b>Q6. A patient with sepsis has urine output of 20 mL/hr for 2 hours. BP is 92/58. What does this finding indicate?</b><br>
+<label><input type="radio" name="q6" value="1"> Inadequate tissue perfusion</label><br>
+<label><input type="radio" name="q6" value="0"> Normal renal adaptation</label><br>
+<label><input type="radio" name="q6" value="0"> Expected response to antibiotics</label><br>
+<label><input type="radio" name="q6" value="0"> No immediate concern</label>
+</div>
+
+<div class="question">
+<b>Q7. A patient receiving morphine IV becomes difficult to arouse. RR is 8/min. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q7" value="1"> Support airway and breathing</label><br>
+<label><input type="radio" name="q7" value="0"> Document sedation level</label><br>
+<label><input type="radio" name="q7" value="0"> Reassess in 30 minutes</label><br>
+<label><input type="radio" name="q7" value="0"> Call the physician</label>
+</div>
+
+<div class="question">
+<b>Q8. A trauma patient arrives confused with unequal pupils. What should the nurse do first?</b><br>
+<label><input type="radio" name="q8" value="1"> Ensure airway and cervical spine protection</label><br>
+<label><input type="radio" name="q8" value="0"> Obtain consent</label><br>
+<label><input type="radio" name="q8" value="0"> Perform a full neurological exam</label><br>
+<label><input type="radio" name="q8" value="0"> Contact family</label>
+</div>
+
+<div class="question">
+<b>Q9. A patient complains of chest pain radiating to the left arm. BP 150/90, HR 104. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q9" value="1"> Administer oxygen and assess ECG</label><br>
+<label><input type="radio" name="q9" value="0"> Give antacid</label><br>
+<label><input type="radio" name="q9" value="0"> Encourage rest</label><br>
+<label><input type="radio" name="q9" value="0"> Document pain scale</label>
+</div>
+
+<div class="question">
+<b>Q10. A postoperative patient has saturated the dressing within 20 minutes. What should the nurse do first?</b><br>
+<label><input type="radio" name="q10" value="1"> Apply pressure and assess bleeding</label><br>
+<label><input type="radio" name="q10" value="0"> Change the dressing</label><br>
+<label><input type="radio" name="q10" value="0"> Notify the surgeon</label><br>
+<label><input type="radio" name="q10" value="0"> Document findings</label>
+</div>
+<div class="question">
+<b>Q11. A patient with COPD becomes drowsy. RR is 10/min, SpO₂ 88% on 2 L nasal cannula. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q11" value="1"> Increase oxygen delivery and assess ventilation</label><br>
+<label><input type="radio" name="q11" value="0"> Encourage deep breathing</label><br>
+<label><input type="radio" name="q11" value="0"> Document respiratory status</label><br>
+<label><input type="radio" name="q11" value="0"> Notify respiratory therapy</label>
+</div>
+
+<div class="question">
+<b>Q12. A patient suddenly reports severe headache and vomiting. BP is 190/110. What should the nurse do first?</b><br>
+<label><input type="radio" name="q12" value="1"> Maintain patient safety and reduce stimulation</label><br>
+<label><input type="radio" name="q12" value="0"> Give prescribed analgesic</label><br>
+<label><input type="radio" name="q12" value="0"> Obtain consent for imaging</label><br>
+<label><input type="radio" name="q12" value="0"> Document symptoms</label>
+</div>
+
+<div class="question">
+<b>Q13. A patient receiving blood transfusion develops fever, chills, and back pain. What is the immediate nursing action?</b><br>
+<label><input type="radio" name="q13" value="1"> Stop the transfusion immediately</label><br>
+<label><input type="radio" name="q13" value="0"> Slow the transfusion rate</label><br>
+<label><input type="radio" name="q13" value="0"> Administer antipyretic</label><br>
+<label><input type="radio" name="q13" value="0"> Notify the physician</label>
+</div>
+
+<div class="question">
+<b>Q14. A patient with a tracheostomy suddenly has noisy respirations and decreased airflow. What should the nurse do first?</b><br>
+<label><input type="radio" name="q14" value="1"> Suction the tracheostomy tube</label><br>
+<label><input type="radio" name="q14" value="0"> Increase oxygen flow</label><br>
+<label><input type="radio" name="q14" value="0"> Call respiratory therapy</label><br>
+<label><input type="radio" name="q14" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q15. A postoperative patient reports increasing pain and tightness in the calf. What is the priority nursing action?</b><br>
+<label><input type="radio" name="q15" value="1"> Stop ambulation and assess circulation</label><br>
+<label><input type="radio" name="q15" value="0"> Encourage walking</label><br>
+<label><input type="radio" name="q15" value="0"> Apply warm compress</label><br>
+<label><input type="radio" name="q15" value="0"> Document pain level</label>
+</div>
+
+<div class="question">
+<b>Q16. A patient with heart failure suddenly becomes anxious and pink frothy sputum is noted. What should the nurse do first?</b><br>
+<label><input type="radio" name="q16" value="1"> Elevate the head of bed and apply oxygen</label><br>
+<label><input type="radio" name="q16" value="0"> Administer prescribed diuretic</label><br>
+<label><input type="radio" name="q16" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q16" value="0"> Monitor lung sounds</label>
+</div>
+
+<div class="question">
+<b>Q17. A patient suddenly develops stridor after neck surgery. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q17" value="1"> Prepare for airway support</label><br>
+<label><input type="radio" name="q17" value="0"> Reassure the patient</label><br>
+<label><input type="radio" name="q17" value="0"> Administer pain medication</label><br>
+<label><input type="radio" name="q17" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q18. A patient receiving insulin becomes pale and shaky. Blood glucose is pending. What should the nurse do first?</b><br>
+<label><input type="radio" name="q18" value="1"> Administer a fast-acting carbohydrate</label><br>
+<label><input type="radio" name="q18" value="0"> Wait for lab confirmation</label><br>
+<label><input type="radio" name="q18" value="0"> Document symptoms</label><br>
+<label><input type="radio" name="q18" value="0"> Notify the physician</label>
+</div>
+
+<div class="question">
+<b>Q19. A patient with head injury becomes increasingly confused and lethargic. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q19" value="1"> Protect airway and monitor neurological status</label><br>
+<label><input type="radio" name="q19" value="0"> Perform full head-to-toe assessment</label><br>
+<label><input type="radio" name="q19" value="0"> Reorient the patient</label><br>
+<label><input type="radio" name="q19" value="0"> Document mental status</label>
+</div>
+
+<div class="question">
+<b>Q20. A patient reports sudden shortness of breath after surgery. HR 130, BP 90/60. What should the nurse suspect first?</b><br>
+<label><input type="radio" name="q20" value="1"> Pulmonary embolism</label><br>
+<label><input type="radio" name="q20" value="0"> Anxiety attack</label><br>
+<label><input type="radio" name="q20" value="0"> Atelectasis</label><br>
+<label><input type="radio" name="q20" value="0"> Pain response</label>
+</div>
+<div class="question">
+<b>Q21. An order reads: 1000 mL normal saline over 8 hours. What is the IV rate in mL/hr?</b><br>
+<label><input type="radio" name="q21" value="1"> 125 mL/hr</label><br>
+<label><input type="radio" name="q21" value="0"> 100 mL/hr</label><br>
+<label><input type="radio" name="q21" value="0"> 150 mL/hr</label><br>
+<label><input type="radio" name="q21" value="0"> 175 mL/hr</label>
+</div>
+
+<div class="question">
+<b>Q22. A patient receiving IV fluids develops crackles and increasing shortness of breath. What is the nurse’s immediate action?</b><br>
+<label><input type="radio" name="q22" value="1"> Stop the infusion and assess respiratory status</label><br>
+<label><input type="radio" name="q22" value="0"> Slow the infusion rate</label><br>
+<label><input type="radio" name="q22" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q22" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q23. An order is written: Heparin 18 units/kg/hr. The patient weighs 70 kg. How many units per hour should the nurse administer?</b><br>
+<label><input type="radio" name="q23" value="1"> 1260 units/hr</label><br>
+<label><input type="radio" name="q23" value="0"> 980 units/hr</label><br>
+<label><input type="radio" name="q23" value="0"> 1400 units/hr</label><br>
+<label><input type="radio" name="q23" value="0"> 1800 units/hr</label>
+</div>
+
+<div class="question">
+<b>Q24. A patient is prescribed potassium chloride IV. Which assessment finding requires holding the medication?</b><br>
+<label><input type="radio" name="q24" value="1"> Urine output of 15 mL/hr</label><br>
+<label><input type="radio" name="q24" value="0"> Blood pressure 140/90</label><br>
+<label><input type="radio" name="q24" value="0"> Heart rate 88/min</label><br>
+<label><input type="radio" name="q24" value="0"> Mild nausea</label>
+</div>
+
+<div class="question">
+<b>Q25. An IV pump alarm sounds indicating occlusion. What should the nurse do first?</b><br>
+<label><input type="radio" name="q25" value="1"> Assess the IV site and tubing</label><br>
+<label><input type="radio" name="q25" value="0"> Silence the alarm</label><br>
+<label><input type="radio" name="q25" value="0"> Restart the pump</label><br>
+<label><input type="radio" name="q25" value="0"> Notify biomedical services</label>
+</div>
+
+<div class="question">
+<b>Q26. A patient receiving insulin IV has a blood glucose drop from 240 mg/dL to 110 mg/dL in one hour. What is the nurse’s priority action?</b><br>
+<label><input type="radio" name="q26" value="1"> Reassess infusion rate and monitor closely</label><br>
+<label><input type="radio" name="q26" value="0"> Stop the insulin infusion</label><br>
+<label><input type="radio" name="q26" value="0"> Administer dextrose</label><br>
+<label><input type="radio" name="q26" value="0"> Document the change</label>
+</div>
+
+<div class="question">
+<b>Q27. An order states: Infuse 500 mL over 4 hours. How many mL per hour should the pump be set?</b><br>
+<label><input type="radio" name="q27" value="1"> 125 mL/hr</label><br>
+<label><input type="radio" name="q27" value="0"> 100 mL/hr</label><br>
+<label><input type="radio" name="q27" value="0"> 150 mL/hr</label><br>
+<label><input type="radio" name="q27" value="0"> 200 mL/hr</label>
+</div>
+
+<div class="question">
+<b>Q28. A patient on IV antibiotics develops itching and wheezing shortly after administration begins. What should the nurse do first?</b><br>
+<label><input type="radio" name="q28" value="1"> Stop the medication immediately</label><br>
+<label><input type="radio" name="q28" value="0"> Slow the infusion rate</label><br>
+<label><input type="radio" name="q28" value="0"> Administer antihistamine</label><br>
+<label><input type="radio" name="q28" value="0"> Document the reaction</label>
+</div>
+
+<div class="question">
+<b>Q29. A patient has an order for morphine IV PRN pain. RR is 10/min. What is the nurse’s action?</b><br>
+<label><input type="radio" name="q29" value="1"> Hold the medication and assess respiratory status</label><br>
+<label><input type="radio" name="q29" value="0"> Administer the medication</label><br>
+<label><input type="radio" name="q29" value="0"> Reduce the dose</label><br>
+<label><input type="radio" name="q29" value="0"> Document and reassess later</label>
+</div>
+
+<div class="question">
+<b>Q30. A patient receiving continuous IV fluids has edema and weight gain of 2 kg in 24 hours. What does this indicate?</b><br>
+<label><input type="radio" name="q30" value="1"> Fluid volume excess</label><br>
+<label><input type="radio" name="q30" value="0"> Expected response to therapy</label><br>
+<label><input type="radio" name="q30" value="0"> Dehydration</label><br>
+<label><input type="radio" name="q30" value="0"> Normal adaptation</label>
+</div>
+
+<div class="question">
+<b>Q31. An order reads: Dopamine infusion at 5 mcg/kg/min. What is the nurse’s priority before initiating?</b><br>
+<label><input type="radio" name="q31" value="1"> Ensure cardiac monitoring is in place</label><br>
+<label><input type="radio" name="q31" value="0"> Obtain informed consent</label><br>
+<label><input type="radio" name="q31" value="0"> Administer via peripheral IV without monitoring</label><br>
+<label><input type="radio" name="q31" value="0"> Document baseline vital signs only</label>
+</div>
+
+<div class="question">
+<b>Q32. A patient on diuretics has potassium level of 3.0 mEq/L. What is the priority nursing concern?</b><br>
+<label><input type="radio" name="q32" value="1"> Risk for cardiac dysrhythmias</label><br>
+<label><input type="radio" name="q32" value="0"> Risk for hypertension</label><br>
+<label><input type="radio" name="q32" value="0"> Fluid volume excess</label><br>
+<label><input type="radio" name="q32" value="0"> Risk for infection</label>
+</div>
+
+<div class="question">
+<b>Q33. An IV infiltration is suspected. What finding supports this?</b><br>
+<label><input type="radio" name="q33" value="1"> Swelling and coolness at the site</label><br>
+<label><input type="radio" name="q33" value="0"> Warmth and redness</label><br>
+<label><input type="radio" name="q33" value="0"> Brisk blood return</label><br>
+<label><input type="radio" name="q33" value="0"> Pain relief</label>
+</div>
+
+<div class="question">
+<b>Q34. A patient is ordered to receive digoxin. Which assessment is essential before administration?</b><br>
+<label><input type="radio" name="q34" value="1"> Apical pulse rate</label><br>
+<label><input type="radio" name="q34" value="0"> Blood pressure</label><br>
+<label><input type="radio" name="q34" value="0"> Respiratory rate</label><br>
+<label><input type="radio" name="q34" value="0"> Oxygen saturation</label>
+</div>
+
+<div class="question">
+<b>Q35. A patient receiving IV fluids complains of pain and redness along the vein. What is the nurse’s action?</b><br>
+<label><input type="radio" name="q35" value="1"> Stop the infusion and assess the site</label><br>
+<label><input type="radio" name="q35" value="0"> Apply heat and continue infusion</label><br>
+<label><input type="radio" name="q35" value="0"> Slow the IV rate</label><br>
+<label><input type="radio" name="q35" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q36. A patient is prescribed insulin but has not eaten. What should the nurse do?</b><br>
+<label><input type="radio" name="q36" value="1"> Verify meal availability before administration</label><br>
+<label><input type="radio" name="q36" value="0"> Administer insulin as ordered</label><br>
+<label><input type="radio" name="q36" value="0"> Hold insulin and document</label><br>
+<label><input type="radio" name="q36" value="0"> Notify the physician immediately</label>
+</div>
+
+<div class="question">
+<b>Q37. An IV medication is ordered IV push. What is the nurse’s priority before administration?</b><br>
+<label><input type="radio" name="q37" value="1"> Verify correct dilution and rate</label><br>
+<label><input type="radio" name="q37" value="0"> Check patient comfort</label><br>
+<label><input type="radio" name="q37" value="0"> Prepare documentation</label><br>
+<label><input type="radio" name="q37" value="0"> Assess urine output</label>
+</div>
+
+<div class="question">
+<b>Q38. A patient on anticoagulant therapy has bleeding gums. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q38" value="1"> Assess for signs of bleeding and notify provider</label><br>
+<label><input type="radio" name="q38" value="0"> Reassure the patient</label><br>
+<label><input type="radio" name="q38" value="0"> Document as expected effect</label><br>
+<label><input type="radio" name="q38" value="0"> Encourage oral fluids</label>
+</div>
+
+<div class="question">
+<b>Q39. A patient receiving IV potassium complains of burning at the IV site. What is the nurse’s action?</b><br>
+<label><input type="radio" name="q39" value="1"> Stop infusion and assess IV site</label><br>
+<label><input type="radio" name="q39" value="0"> Increase infusion rate</label><br>
+<label><input type="radio" name="q39" value="0"> Administer analgesic</label><br>
+<label><input type="radio" name="q39" value="0"> Document complaint</label>
+</div>
+
+<div class="question">
+<b>Q40. A patient is prescribed IV fluids at 150 mL/hr. After 2 hours, 500 mL has infused. What should the nurse do?</b><br>
+<label><input type="radio" name="q40" value="1"> Reassess the infusion rate and adjust as needed</label><br>
+<label><input type="radio" name="q40" value="0"> Continue current rate</label><br>
+<label><input type="radio" name="q40" value="0"> Stop the infusion</label><br>
+<label><input type="radio" name="q40" value="0"> Document the finding</label>
+</div>
+
+<div class="question">
+<b>Q41. A patient in the ICU suddenly becomes hypotensive (BP 82/50) and tachycardic. Which action must the nurse perform immediately?</b><br>
+<label><input type="radio" name="q41" value="1"> Assess perfusion and initiate emergency response</label><br>
+<label><input type="radio" name="q41" value="0"> Delegate vital sign recheck to assistant</label><br>
+<label><input type="radio" name="q41" value="0"> Review medication record</label><br>
+<label><input type="radio" name="q41" value="0"> Document the change</label>
+</div>
+
+<div class="question">
+<b>Q42. A ventilated patient suddenly alarms with high peak pressures. What is the nurse’s priority action?</b><br>
+<label><input type="radio" name="q42" value="1"> Assess airway patency and patient condition</label><br>
+<label><input type="radio" name="q42" value="0"> Silence the alarm</label><br>
+<label><input type="radio" name="q42" value="0"> Notify respiratory therapy</label><br>
+<label><input type="radio" name="q42" value="0"> Document ventilator settings</label>
+</div>
+
+<div class="question">
+<b>Q43. A patient with sepsis has a sudden decrease in urine output to 10 mL/hr. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q43" value="1"> Assess circulation and perfusion status</label><br>
+<label><input type="radio" name="q43" value="0"> Encourage oral fluids</label><br>
+<label><input type="radio" name="q43" value="0"> Delegate intake and output monitoring</label><br>
+<label><input type="radio" name="q43" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q44. A nurse is caring for four patients. Which task should NOT be delegated to a nursing assistant?</b><br>
+<label><input type="radio" name="q44" value="1"> Assessing chest pain in a new admission</label><br>
+<label><input type="radio" name="q44" value="0"> Measuring urine output</label><br>
+<label><input type="radio" name="q44" value="0"> Assisting with hygiene</label><br>
+<label><input type="radio" name="q44" value="0"> Obtaining vital signs on a stable patient</label>
+</div>
+
+<div class="question">
+<b>Q45. A postoperative patient suddenly becomes restless and confused. What should the nurse do first?</b><br>
+<label><input type="radio" name="q45" value="1"> Assess oxygenation and vital signs</label><br>
+<label><input type="radio" name="q45" value="0"> Administer prescribed sedative</label><br>
+<label><input type="radio" name="q45" value="0"> Delegate monitoring to assistant</label><br>
+<label><input type="radio" name="q45" value="0"> Document mental status</label>
+</div>
+
+<div class="question">
+<b>Q46. A patient on a vasopressor infusion has infiltration at the IV site. What is the nurse’s immediate action?</b><br>
+<label><input type="radio" name="q46" value="1"> Stop the infusion and follow extravasation protocol</label><br>
+<label><input type="radio" name="q46" value="0"> Slow the infusion rate</label><br>
+<label><input type="radio" name="q46" value="0"> Apply warm compress</label><br>
+<label><input type="radio" name="q46" value="0"> Document the finding</label>
+</div>
+
+<div class="question">
+<b>Q47. A patient suddenly develops chest pain and hypotension after central line insertion. What should the nurse suspect?</b><br>
+<label><input type="radio" name="q47" value="1"> Pneumothorax</label><br>
+<label><input type="radio" name="q47" value="0"> Anxiety reaction</label><br>
+<label><input type="radio" name="q47" value="0"> Fluid overload</label><br>
+<label><input type="radio" name="q47" value="0"> Medication allergy</label>
+</div>
+
+<div class="question">
+<b>Q48. A nurse is supervising a new graduate. Which situation requires immediate RN intervention?</b><br>
+<label><input type="radio" name="q48" value="1"> New graduate administering IV push medication without supervision</label><br>
+<label><input type="radio" name="q48" value="0"> New graduate measuring intake and output</label><br>
+<label><input type="radio" name="q48" value="0"> New graduate assisting with ambulation</label><br>
+<label><input type="radio" name="q48" value="0"> New graduate documenting vital signs</label>
+</div>
+
+<div class="question">
+<b>Q49. A patient becomes suddenly unresponsive in the ICU. What is the nurse’s first action?</b><br>
+<label><input type="radio" name="q49" value="1"> Assess airway and initiate emergency response</label><br>
+<label><input type="radio" name="q49" value="0"> Call the physician</label><br>
+<label><input type="radio" name="q49" value="0"> Document the event</label><br>
+<label><input type="radio" name="q49" value="0"> Review laboratory results</label>
+</div>
+
+<div class="question">
+<b>Q50. A patient with head injury has a sudden increase in intracranial pressure signs. What should the nurse do first?</b><br>
+<label><input type="radio" name="q50" value="1"> Elevate head of bed and maintain airway</label><br>
+<label><input type="radio" name="q50" value="0"> Perform neurological reassessment</label><br>
+<label><input type="radio" name="q50" value="0"> Administer sedative</label><br>
+<label><input type="radio" name="q50" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q51. A patient on continuous cardiac monitoring develops ventricular tachycardia. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q51" value="1"> Assess patient responsiveness and pulse</label><br>
+<label><input type="radio" name="q51" value="0"> Print rhythm strip</label><br>
+<label><input type="radio" name="q51" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q51" value="0"> Document the rhythm</label>
+</div>
+
+<div class="question">
+<b>Q52. A patient with sepsis is confused and agitated. What should the nurse do first?</b><br>
+<label><input type="radio" name="q52" value="1"> Assess oxygenation and perfusion</label><br>
+<label><input type="radio" name="q52" value="0"> Apply restraints</label><br>
+<label><input type="radio" name="q52" value="0"> Delegate observation to assistant</label><br>
+<label><input type="radio" name="q52" value="0"> Document behavior</label>
+</div>
+
+<div class="question">
+<b>Q53. Which patient should the nurse see first?</b><br>
+<label><input type="radio" name="q53" value="1"> Patient with sudden drop in blood pressure</label><br>
+<label><input type="radio" name="q53" value="0"> Patient requesting pain medication</label><br>
+<label><input type="radio" name="q53" value="0"> Patient awaiting discharge instructions</label><br>
+<label><input type="radio" name="q53" value="0"> Patient with stable vital signs</label>
+</div>
+
+<div class="question">
+<b>Q54. A patient receiving continuous sedation becomes difficult to arouse. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q54" value="1"> Assess airway and respiratory status</label><br>
+<label><input type="radio" name="q54" value="0"> Decrease sedation dose</label><br>
+<label><input type="radio" name="q54" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q54" value="0"> Document sedation score</label>
+</div>
+
+<div class="question">
+<b>Q55. A patient receiving tube feeding suddenly coughs and has decreased oxygen saturation. What should the nurse do first?</b><br>
+<label><input type="radio" name="q55" value="1"> Stop feeding and assess airway</label><br>
+<label><input type="radio" name="q55" value="0"> Suction oral secretions</label><br>
+<label><input type="radio" name="q55" value="0"> Increase oxygen</label><br>
+<label><input type="radio" name="q55" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q56. A patient with GI bleeding suddenly becomes hypotensive. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q56" value="1"> Assess circulation and initiate emergency response</label><br>
+<label><input type="radio" name="q56" value="0"> Administer prescribed medication</label><br>
+<label><input type="radio" name="q56" value="0"> Document vital signs</label><br>
+<label><input type="radio" name="q56" value="0"> Notify the physician</label>
+</div>
+
+<div class="question">
+<b>Q57. A patient suddenly removes oxygen and becomes cyanotic. What should the nurse do first?</b><br>
+<label><input type="radio" name="q57" value="1"> Reapply oxygen and assess breathing</label><br>
+<label><input type="radio" name="q57" value="0"> Restrain the patient</label><br>
+<label><input type="radio" name="q57" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q57" value="0"> Document behavior</label>
+</div>
+
+<div class="question">
+<b>Q58. A nurse is assigning tasks. Which patient requires direct RN care?</b><br>
+<label><input type="radio" name="q58" value="1"> Patient with new-onset chest pain</label><br>
+<label><input type="radio" name="q58" value="0"> Stable postoperative patient</label><br>
+<label><input type="radio" name="q58" value="0"> Patient needing assistance with bathing</label><br>
+<label><input type="radio" name="q58" value="0"> Patient requiring routine vital signs</label>
+</div>
+
+<div class="question">
+<b>Q59. A patient with spinal injury suddenly has difficulty breathing. What is the nurse’s priority?</b><br>
+<label><input type="radio" name="q59" value="1"> Support airway and breathing</label><br>
+<label><input type="radio" name="q59" value="0"> Perform neurological assessment</label><br>
+<label><input type="radio" name="q59" value="0"> Document findings</label><br>
+<label><input type="radio" name="q59" value="0"> Notify the physician</label>
+</div>
+
+<div class="question">
+<b>Q60. A patient in critical condition asks the nurse to explain test results. What should the nurse do first?</b><br>
+<label><input type="radio" name="q60" value="1"> Ensure patient stability before providing explanation</label><br>
+<label><input type="radio" name="q60" value="0"> Provide detailed explanation immediately</label><br>
+<label><input type="radio" name="q60" value="0"> Delegate explanation to another staff member</label><br>
+<label><input type="radio" name="q60" value="0"> Document the request</label>
+</div>
+
+<!-- ================= Q61–Q80 ================= -->
+
+<div class="question">
+<b>Q61. A 58-year-old patient with acute ischemic stroke arrives 90 minutes after symptom onset. The family has not arrived yet. Which nursing action is MOST appropriate?</b><br>
+<label><input type="radio" name="q61" value="0"> Wait for family consent before initiating care</label><br>
+<label><input type="radio" name="q61" value="1"> Prepare the patient for thrombolytic screening</label><br>
+<label><input type="radio" name="q61" value="0"> Provide comfort care only</label><br>
+<label><input type="radio" name="q61" value="0"> Delay interventions until MRI is completed</label>
+</div>
+
+<div class="question">
+<b>Q62. A confused patient pulls out an IV line and attempts to leave the unit. Which action should the nurse take FIRST?</b><br>
+<label><input type="radio" name="q62" value="0"> Apply physical restraints</label><br>
+<label><input type="radio" name="q62" value="0"> Call hospital security</label><br>
+<label><input type="radio" name="q62" value="1"> Attempt verbal de-escalation and ensure safety</label><br>
+<label><input type="radio" name="q62" value="0"> Administer PRN sedative</label>
+</div>
+
+<div class="question">
+<b>Q63. A nurse discovers a medication error that caused no harm. What is the nurse’s BEST action?</b><br>
+<label><input type="radio" name="q63" value="0"> Document only if symptoms appear</label><br>
+<label><input type="radio" name="q63" value="1"> Inform the physician and complete incident report</label><br>
+<label><input type="radio" name="q63" value="0"> Monitor patient quietly</label><br>
+<label><input type="radio" name="q63" value="0"> Ask senior nurse what to do later</label>
+</div>
+
+<div class="question">
+<b>Q64. A patient with increased intracranial pressure suddenly vomits and becomes unresponsive. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q64" value="0"> Check blood pressure</label><br>
+<label><input type="radio" name="q64" value="0"> Suction airway</label><br>
+<label><input type="radio" name="q64" value="1"> Elevate head of bed and assess airway</label><br>
+<label><input type="radio" name="q64" value="0"> Notify physician</label>
+</div>
+
+<div class="question">
+<b>Q65. A family insists on continuing life-support despite medical futility. What is the nurse’s PRIMARY role?</b><br>
+<label><input type="radio" name="q65" value="0"> Decide to withdraw care</label><br>
+<label><input type="radio" name="q65" value="1"> Support family emotionally and clarify care goals</label><br>
+<label><input type="radio" name="q65" value="0"> Ignore family wishes</label><br>
+<label><input type="radio" name="q65" value="0"> Transfer patient immediately</label>
+</div>
+
+<div class="question">
+<b>Q66. A post-stroke patient develops sudden unequal pupils. What is the nurse’s PRIORITY action?</b><br>
+<label><input type="radio" name="q66" value="0"> Document findings</label><br>
+<label><input type="radio" name="q66" value="0"> Perform full neurological exam</label><br>
+<label><input type="radio" name="q66" value="1"> Notify physician immediately</label><br>
+<label><input type="radio" name="q66" value="0"> Recheck pupils in 30 minutes</label>
+</div>
+
+<div class="question">
+<b>Q67. A patient refuses a blood transfusion for religious reasons. The patient is alert and competent. What should the nurse do?</b><br>
+<label><input type="radio" name="q67" value="0"> Proceed due to life-threat</label><br>
+<label><input type="radio" name="q67" value="0"> Notify ethics committee immediately</label><br>
+<label><input type="radio" name="q67" value="1"> Respect refusal and inform physician</label><br>
+<label><input type="radio" name="q67" value="0"> Ask family to override</label>
+</div>
+
+<div class="question">
+<b>Q68. A patient with head injury becomes increasingly restless and confused. What does this MOST likely indicate?</b><br>
+<label><input type="radio" name="q68" value="0"> Anxiety</label><br>
+<label><input type="radio" name="q68" value="0"> Pain</label><br>
+<label><input type="radio" name="q68" value="1"> Rising intracranial pressure</label><br>
+<label><input type="radio" name="q68" value="0"> Hypoglycemia</label>
+</div>
+
+<div class="question">
+<b>Q69. A nurse is assigned a task outside their legal scope. What is the BEST response?</b><br>
+<label><input type="radio" name="q69" value="0"> Perform task under supervision</label><br>
+<label><input type="radio" name="q69" value="1"> Refuse and report assignment</label><br>
+<label><input type="radio" name="q69" value="0"> Attempt task carefully</label><br>
+<label><input type="radio" name="q69" value="0"> Ask colleague to assist</label>
+</div>
+
+<div class="question">
+<b>Q70. A patient suddenly develops slurred speech and unilateral weakness. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q70" value="0"> Check blood glucose</label><br>
+<label><input type="radio" name="q70" value="0"> Call family</label><br>
+<label><input type="radio" name="q70" value="1"> Activate stroke protocol</label><br>
+<label><input type="radio" name="q70" value="0"> Administer oxygen</label>
+</div>
+
+<!-- ================= Q71–Q80 ================= -->
+
+<div class="question">
+<b>Q71. A postoperative patient suddenly becomes confused, restless, and has a drop in oxygen saturation from 97% to 88%. What is the nurse’s FIRST action?</b><br>
+<label><input type="radio" name="q71" value="1"> Apply oxygen and assess airway</label><br>
+<label><input type="radio" name="q71" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q71" value="0"> Reassure the patient</label><br>
+<label><input type="radio" name="q71" value="0"> Document the findings</label>
+</div>
+
+<div class="question">
+<b>Q72. A patient with head trauma has a Glasgow Coma Scale score decreasing from 14 to 11. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q72" value="0"> Reassess in 30 minutes</label><br>
+<label><input type="radio" name="q72" value="1"> Notify the physician immediately</label><br>
+<label><input type="radio" name="q72" value="0"> Administer prescribed analgesic</label><br>
+<label><input type="radio" name="q72" value="0"> Perform full head-to-toe assessment</label>
+</div>
+
+<div class="question">
+<b>Q73. A patient becomes suddenly unresponsive after receiving opioid medication. Which action is the PRIORITY?</b><br>
+<label><input type="radio" name="q73" value="0"> Check blood pressure</label><br>
+<label><input type="radio" name="q73" value="1"> Assess airway and breathing</label><br>
+<label><input type="radio" name="q73" value="0"> Document adverse reaction</label><br>
+<label><input type="radio" name="q73" value="0"> Notify the physician</label>
+</div>
+
+<div class="question">
+<b>Q74. A confused elderly patient insists on leaving the unit despite being at high fall risk. What is the nurse’s BEST initial response?</b><br>
+<label><input type="radio" name="q74" value="0"> Apply physical restraints</label><br>
+<label><input type="radio" name="q74" value="1"> Attempt verbal redirection and ensure safety</label><br>
+<label><input type="radio" name="q74" value="0"> Call security</label><br>
+<label><input type="radio" name="q74" value="0"> Administer sedative medication</label>
+</div>
+
+<div class="question">
+<b>Q75. A nurse witnesses a colleague administering the wrong dose of medication. The patient shows no immediate harm. What should the nurse do?</b><br>
+<label><input type="radio" name="q75" value="0"> Ignore since no harm occurred</label><br>
+<label><input type="radio" name="q75" value="1"> Report the error through proper channels</label><br>
+<label><input type="radio" name="q75" value="0"> Monitor the patient quietly</label><br>
+<label><input type="radio" name="q75" value="0"> Discuss privately without reporting</label>
+</div>
+
+<!-- ================= Q76–Q100 ================= -->
+
+<div class="question">
+<b>Q76. A patient with suspected meningitis develops a sudden seizure. What is the nurse’s PRIORITY action?</b><br>
+<label><input type="radio" name="q76" value="1"> Protect the patient from injury and maintain airway</label><br>
+<label><input type="radio" name="q76" value="0"> Obtain vital signs</label><br>
+<label><input type="radio" name="q76" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q76" value="0"> Document the event</label>
+</div>
+
+<div class="question">
+<b>Q77. A patient with head injury shows a sudden increase in blood pressure and widening pulse pressure. What does this MOST likely indicate?</b><br>
+<label><input type="radio" name="q77" value="1"> Increased intracranial pressure</label><br>
+<label><input type="radio" name="q77" value="0"> Hypovolemia</label><br>
+<label><input type="radio" name="q77" value="0"> Pain response</label><br>
+<label><input type="radio" name="q77" value="0"> Anxiety</label>
+</div>
+
+<div class="question">
+<b>Q78. A confused patient removes oxygen tubing repeatedly. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q78" value="1"> Reorient the patient and ensure oxygen delivery</label><br>
+<label><input type="radio" name="q78" value="0"> Apply restraints</label><br>
+<label><input type="radio" name="q78" value="0"> Call the physician</label><br>
+<label><input type="radio" name="q78" value="0"> Administer sedative</label>
+</div>
+
+<div class="question">
+<b>Q79. A nurse is asked to administer a medication that exceeds the recommended dose. What is the BEST action?</b><br>
+<label><input type="radio" name="q79" value="1"> Clarify the order before administration</label><br>
+<label><input type="radio" name="q79" value="0"> Administer as ordered</label><br>
+<label><input type="radio" name="q79" value="0"> Ask another nurse to give it</label><br>
+<label><input type="radio" name="q79" value="0"> Delay until next shift</label>
+</div>
+
+<div class="question">
+<b>Q80. A patient suddenly becomes unresponsive with shallow breathing. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q80" value="1"> Assess airway and breathing</label><br>
+<label><input type="radio" name="q80" value="0"> Check blood glucose</label><br>
+<label><input type="radio" name="q80" value="0"> Call the physician</label><br>
+<label><input type="radio" name="q80" value="0"> Obtain vital signs</label>
+</div>
+
+<div class="question">
+<b>Q81. A patient reports chest pain with normal vital signs. Which factor MOST determines the nurse’s priority?</b><br>
+<label><input type="radio" name="q81" value="1"> Potential for life-threatening condition</label><br>
+<label><input type="radio" name="q81" value="0"> Patient anxiety level</label><br>
+<label><input type="radio" name="q81" value="0"> Length of symptoms</label><br>
+<label><input type="radio" name="q81" value="0"> Room availability</label>
+</div>
+
+<div class="question">
+<b>Q82. A postoperative patient has a heart rate of 128 bpm and BP 90/58 mmHg. What is the nurse’s PRIORITY action?</b><br>
+<label><input type="radio" name="q82" value="1"> Assess for bleeding and initiate rapid response</label><br>
+<label><input type="radio" name="q82" value="0"> Recheck vital signs in 15 minutes</label><br>
+<label><input type="radio" name="q82" value="0"> Administer prescribed pain medication</label><br>
+<label><input type="radio" name="q82" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q83. A nurse delegates vital signs to an assistant for a patient with altered mental status. This action is:</b><br>
+<label><input type="radio" name="q83" value="1"> Inappropriate due to patient instability</label><br>
+<label><input type="radio" name="q83" value="0"> Appropriate with supervision</label><br>
+<label><input type="radio" name="q83" value="0"> Required for efficiency</label><br>
+<label><input type="radio" name="q83" value="0"> Acceptable if documented</label>
+</div>
+
+<div class="question">
+<b>Q84. A patient receiving IV fluids develops crackles in both lungs. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q84" value="1"> Slow or stop the infusion and assess respiratory status</label><br>
+<label><input type="radio" name="q84" value="0"> Administer oxygen</label><br>
+<label><input type="radio" name="q84" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q84" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q85. A patient refuses prescribed treatment despite understanding the risks. What should the nurse do?</b><br>
+<label><input type="radio" name="q85" value="1"> Respect the decision and inform the physician</label><br>
+<label><input type="radio" name="q85" value="0"> Proceed with treatment</label><br>
+<label><input type="radio" name="q85" value="0"> Ask family to persuade patient</label><br>
+<label><input type="radio" name="q85" value="0"> Document refusal and take no further action</label>
+</div>
+
+<div class="question">
+<b>Q86. A patient becomes hypotensive after receiving antihypertensive medication. What is the nurse’s PRIORITY?</b><br>
+<label><input type="radio" name="q86" value="1"> Ensure patient safety and assess perfusion</label><br>
+<label><input type="radio" name="q86" value="0"> Document the reaction</label><br>
+<label><input type="radio" name="q86" value="0"> Notify the physician</label><br>
+<label><input type="radio" name="q86" value="0"> Reassure the patient</label>
+</div>
+
+<div class="question">
+<b>Q87. A nurse notices a colleague sleeping during duty hours. What is the MOST appropriate action?</b><br>
+<label><input type="radio" name="q87" value="1"> Report through appropriate channels</label><br>
+<label><input type="radio" name="q87" value="0"> Ignore to avoid conflict</label><br>
+<label><input type="radio" name="q87" value="0"> Wake colleague and continue work</label><br>
+<label><input type="radio" name="q87" value="0"> Discuss only after shift</label>
+</div>
+
+<div class="question">
+<b>Q88. A patient with sepsis has a rising respiratory rate despite normal oxygen saturation. What does this MOST indicate?</b><br>
+<label><input type="radio" name="q88" value="1"> Early deterioration</label><br>
+<label><input type="radio" name="q88" value="0"> Anxiety</label><br>
+<label><input type="radio" name="q88" value="0"> Pain response</label><br>
+<label><input type="radio" name="q88" value="0"> Stable condition</label>
+</div>
+
+<div class="question">
+<b>Q89. A nurse receives a verbal order that seems unsafe. What is the BEST response?</b><br>
+<label><input type="radio" name="q89" value="1"> Request clarification before carrying out the order</label><br>
+<label><input type="radio" name="q89" value="0"> Carry out the order quickly</label><br>
+<label><input type="radio" name="q89" value="0"> Ask another nurse to verify</label><br>
+<label><input type="radio" name="q89" value="0"> Delay until written order arrives</label>
+</div>
+
+<div class="question">
+<b>Q90. A patient with decreased level of consciousness is scheduled for oral medication. What should the nurse do?</b><br>
+<label><input type="radio" name="q90" value="1"> Hold medication and assess airway protection</label><br>
+<label><input type="radio" name="q90" value="0"> Administer with thickened fluids</label><br>
+<label><input type="radio" name="q90" value="0"> Crush medication and give</label><br>
+<label><input type="radio" name="q90" value="0"> Ask assistant to administer</label>
+</div>
+
+<div class="question">
+<b>Q91. A patient develops sudden severe headache and vomiting. What is the nurse’s FIRST action?</b><br>
+<label><input type="radio" name="q91" value="1"> Assess neurological status immediately</label><br>
+<label><input type="radio" name="q91" value="0"> Administer analgesic</label><br>
+<label><input type="radio" name="q91" value="0"> Document symptoms</label><br>
+<label><input type="radio" name="q91" value="0"> Notify physician later</label>
+</div>
+
+<div class="question">
+<b>Q92. A patient with unstable vital signs is due for transfer. What should the nurse do?</b><br>
+<label><input type="radio" name="q92" value="1"> Delay transfer and stabilize the patient</label><br>
+<label><input type="radio" name="q92" value="0"> Proceed with transfer as planned</label><br>
+<label><input type="radio" name="q92" value="0"> Document concerns only</label><br>
+<label><input type="radio" name="q92" value="0"> Ask receiving unit to monitor closely</label>
+</div>
+
+<div class="question">
+<b>Q93. A patient reports dizziness after standing. What is the MOST appropriate action?</b><br>
+<label><input type="radio" name="q93" value="1"> Assist patient back to bed and assess</label><br>
+<label><input type="radio" name="q93" value="0"> Encourage patient to walk</label><br>
+<label><input type="radio" name="q93" value="0"> Document and observe</label><br>
+<label><input type="radio" name="q93" value="0"> Provide reassurance only</label>
+</div>
+
+<div class="question">
+<b>Q94. A nurse identifies a potential safety hazard in the unit. What should be done?</b><br>
+<label><input type="radio" name="q94" value="1"> Report according to safety policy</label><br>
+<label><input type="radio" name="q94" value="0"> Ignore if no incident occurred</label><br>
+<label><input type="radio" name="q94" value="0"> Fix it quietly</label><br>
+<label><input type="radio" name="q94" value="0"> Discuss during next meeting</label>
+</div>
+
+<div class="question">
+<b>Q95. A patient with suspected internal bleeding shows tachycardia and pallor. What is the nurse’s PRIORITY?</b><br>
+<label><input type="radio" name="q95" value="1"> Initiate emergency response and assess circulation</label><br>
+<label><input type="radio" name="q95" value="0"> Obtain laboratory results</label><br>
+<label><input type="radio" name="q95" value="0"> Administer analgesic</label><br>
+<label><input type="radio" name="q95" value="0"> Document findings</label>
+</div>
+
+<div class="question">
+<b>Q96. A patient requests discharge against medical advice. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q96" value="1"> Inform the physician and explain risks</label><br>
+<label><input type="radio" name="q96" value="0"> Allow patient to leave immediately</label><br>
+<label><input type="radio" name="q96" value="0"> Ask family to intervene</label><br>
+<label><input type="radio" name="q96" value="0"> Document refusal only</label>
+</div>
+
+<div class="question">
+<b>Q97. A patient with respiratory distress has a normal oxygen saturation. What should the nurse consider?</b><br>
+<label><input type="radio" name="q97" value="1"> Work of breathing and clinical appearance</label><br>
+<label><input type="radio" name="q97" value="0"> Oxygen saturation alone is sufficient</label><br>
+<label><input type="radio" name="q97" value="0"> Anxiety is the cause</label><br>
+<label><input type="radio" name="q97" value="0"> No intervention is needed</label>
+</div>
+
+<div class="question">
+<b>Q98. A nurse is overwhelmed with workload and feels unsafe. What is the BEST action?</b><br>
+<label><input type="radio" name="q98" value="1"> Report concerns and request support</label><br>
+<label><input type="radio" name="q98" value="0"> Continue working silently</label><br>
+<label><input type="radio" name="q98" value="0"> Skip breaks to catch up</label><br>
+<label><input type="radio" name="q98" value="0"> Delegate critical tasks improperly</label>
+</div>
+
+<div class="question">
+<b>Q99. A patient’s condition suddenly worsens during a procedure. What should the nurse do FIRST?</b><br>
+<label><input type="radio" name="q99" value="1"> Stop the procedure and assess patient safety</label><br>
+<label><input type="radio" name="q99" value="0"> Continue to finish quickly</label><br>
+<label><input type="radio" name="q99" value="0"> Document the event</label><br>
+<label><input type="radio" name="q99" value="0"> Notify the physician after completion</label>
+</div>
+
+<div class="question">
+<b>Q100. A candidate consistently answers slowly but safely. In SCFHS logic, this MOST likely indicates:</b><br>
+<label><input type="radio" name="q100" value="1"> Borderline GO requiring time-discipline training</label><br>
+<label><input type="radio" name="q100" value="0"> Automatic FAIL</label><br>
+<label><input type="radio" name="q100" value="0"> No concern if score is high</label><br>
+<label><input type="radio" name="q100" value="0"> Knowledge deficit only</label>
+</div>
+</script>
+
+</div>
 
 <button type="button" onclick="submitExam()">Submit Exam</button>
-</div>
 
-<h3>Item-Level Performance Heatmap</h3>
+<h3>Item-Level Performance Heatmap (Q1–Q100)</h3>
 <div id="heatmap"></div>
 
-<!-- TRAINER REVIEW PANEL -->
-<div id="trainerReview">
-  <h3 id="reviewTitle"></h3>
-  <p id="reviewText"></p>
-</div>
+<!-- ================= SCRIPT ================= -->
 
 <script>
-// ===== TRAINER RATIONALES (SEPARATE, SAFE) =====
-const trainerRationale = {
-  1: "This patient shows signs of acute hypoxia and shock. Airway and oxygenation are the immediate priority before notification or documentation.",
-  // 2: "...",
-  // 3: "..."
+const rationales = {
+  1: "Fail-Fast: Abnormal vital signs ignored.",
+  2: "Tie-breaker: Time priority missed.",
+  3: "Medication safety logic violated.",
+  4: "Delegation trap: RN action required.",
+  5: "ABC breach: Airway not prioritized.",
+
+  41: "Calculation error → unsafe IV rate.",
+  42: "Fluid overload risk missed.",
+  61: "Ethical delay causes patient harm.",
+  81: "Tie-breaker: vital trend beats symptoms."
 };
 
-// ===== SUBMIT + HEATMAP =====
 function submitExam() {
   const heatmap = document.getElementById("heatmap");
   heatmap.innerHTML = "";
@@ -110,25 +994,26 @@ function submitExam() {
 
     for (let a of answers) {
       if (a.checked) {
-        status = a.value === "1" ? "correct" : "wrong";
+        status = (a.value === "1") ? "correct" : "wrong";
       }
     }
 
     const cell = document.createElement("div");
     cell.className = "heat " + status;
     cell.innerText = "Q" + i;
-    cell.onclick = () => openTrainerReview(i);
+
+    const tip =
+      rationales[i]
+        ? rationales[i]
+        : "No mapped rationale.\nTrainer review required.";
+
+    cell.setAttribute(
+      "data-tip",
+      "Status: " + status.toUpperCase() + "\n" + tip
+    );
+
     heatmap.appendChild(cell);
   }
-}
-
-// ===== OPEN TRAINER REVIEW =====
-function openTrainerReview(qNum) {
-  const panel = document.getElementById("trainerReview");
-  document.getElementById("reviewTitle").innerText = "Trainer Review – Q" + qNum;
-  document.getElementById("reviewText").innerText =
-    trainerRationale[qNum] || "Trainer rationale not yet provided.";
-  panel.style.display = "block";
 }
 </script>
 
