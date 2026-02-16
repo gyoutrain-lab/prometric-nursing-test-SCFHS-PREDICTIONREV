@@ -5,161 +5,130 @@
 <title>SCFHS Prometric Pass Prediction Exam</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  padding: 20px;
-}
+body { font-family: Arial, sans-serif; margin: 20px; }
 
-h1, h2 {
-  text-align: center;
+.question {
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 button {
   padding: 10px 18px;
   font-size: 16px;
-  margin: 15px 0;
-  cursor: pointer;
+  margin-top: 20px;
 }
 
-input[type=text] {
-  padding: 6px;
-  width: 260px;
-  margin: 5px;
-}
-
-.question {
-  background: #ffffff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border-left: 6px solid #ccc;
-}
-
-.question.correct { border-left-color: #2ecc71; }
-.question.wrong { border-left-color: #e74c3c; }
-
-.rationale {
-  display: none;
-  margin-top: 10px;
-  padding: 10px;
-  background: #f1f1f1;
-  border-left: 4px solid #555;
-  font-size: 14px;
-}
-
-#exam { display: none; }
-
+/* HEATMAP */
 #heatmap {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 6px;
+  max-width: 520px;
   margin-top: 20px;
 }
 
 .heat {
-  padding: 8px;
+  padding: 10px 0;
   text-align: center;
-  border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
+  border-radius: 4px;
+  color: #fff;
   cursor: pointer;
 }
 
-.heat.correct { background: #2ecc71; color: #fff; }
-.heat.wrong { background: #e74c3c; color: #fff; }
-.heat.unanswered { background: #bdc3c7; color: #000; }
+.correct { background: #2ecc71; }
+.wrong { background: #e74c3c; }
+.unanswered { background: #bdc3c7; }
+
+/* TRAINER REVIEW */
+#trainerReview {
+  margin-top: 30px;
+  padding: 15px;
+  border: 2px solid #333;
+  display: none;
+}
 </style>
 </head>
 
 <body>
 
-<h1>SCFHS Prometric Pass Prediction Exam</h1>
+<h2>SCFHS Prometric Pass Prediction Exam</h2>
 
-<div id="intro" style="text-align:center;">
-  Candidate Name:<br>
-  <input type="text" id="candidateName"><br><br>
-  Candidate ID:<br>
-  <input type="text" id="candidateID"><br><br>
-  <button onclick="startExam()">Start Exam</button>
-</div>
+<label>Candidate Name:
+  <input type="text">
+</label><br><br>
 
-<form id="exam">
+<label>Candidate ID:
+  <input type="text">
+</label>
 
-<!-- ================================================= -->
-<!-- 🔽 PASTE Q1–Q100 BELOW (SAME FORMAT FOR ALL) 🔽 -->
-<!-- ================================================= -->
+<hr>
 
-<div class="question" id="q1">
+<!-- ================= EXAM ================= -->
+<div id="exam">
+
+<div class="question">
 <b>Q1. A 68-year-old male admitted with pneumonia suddenly becomes restless. BP 88/54, HR 124, RR 30, SpO₂ 89% on room air. What is the nurse’s PRIORITY action?</b><br>
 <label><input type="radio" name="q1" value="1"> Apply oxygen via non-rebreather mask</label><br>
 <label><input type="radio" name="q1" value="0"> Reassess vital signs in 15 minutes</label><br>
 <label><input type="radio" name="q1" value="0"> Notify the physician</label><br>
 <label><input type="radio" name="q1" value="0"> Document findings</label>
-
-<div class="rationale">
-<b>Trainer Review:</b><br>
-Fail-fast hypoxia + hypotension. ABC → oxygenation before notification or documentation.
-</div>
 </div>
 
-<!-- 🔁 CONTINUE SAME STRUCTURE UNTIL Q100 -->
+<!-- Q2–Q100 CONTINUE SAME FORMAT -->
 
 <button type="button" onclick="submitExam()">Submit Exam</button>
-</form>
+</div>
 
-<h2>Item-Level Heatmap (Trainer View)</h2>
+<h3>Item-Level Performance Heatmap</h3>
 <div id="heatmap"></div>
 
-<script>
-function startExam() {
-  document.getElementById("intro").style.display = "none";
-  document.getElementById("exam").style.display = "block";
-}
+<!-- TRAINER REVIEW PANEL -->
+<div id="trainerReview">
+  <h3 id="reviewTitle"></h3>
+  <p id="reviewText"></p>
+</div>
 
+<script>
+// ===== TRAINER RATIONALES (SEPARATE, SAFE) =====
+const trainerRationale = {
+  1: "This patient shows signs of acute hypoxia and shock. Airway and oxygenation are the immediate priority before notification or documentation.",
+  // 2: "...",
+  // 3: "..."
+};
+
+// ===== SUBMIT + HEATMAP =====
 function submitExam() {
   const heatmap = document.getElementById("heatmap");
   heatmap.innerHTML = "";
 
   for (let i = 1; i <= 100; i++) {
     const answers = document.getElementsByName("q" + i);
-    const question = document.getElementById("q" + i);
     let status = "unanswered";
 
     for (let a of answers) {
       if (a.checked) {
-        status = (a.value === "1") ? "correct" : "wrong";
+        status = a.value === "1" ? "correct" : "wrong";
       }
-    }
-
-    if (question) {
-      question.classList.remove("correct", "wrong");
-      if (status === "correct") question.classList.add("correct");
-      if (status === "wrong") question.classList.add("wrong");
     }
 
     const cell = document.createElement("div");
     cell.className = "heat " + status;
     cell.innerText = "Q" + i;
-    cell.onclick = function () {
-      jumpToQuestion(i);
-    };
-
+    cell.onclick = () => openTrainerReview(i);
     heatmap.appendChild(cell);
   }
 }
 
-function jumpToQuestion(qNum) {
-  const question = document.getElementById("q" + qNum);
-  if (!question) return;
-
-  question.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  const rationale = question.querySelector(".rationale");
-  if (rationale) {
-    rationale.style.display =
-      rationale.style.display === "block" ? "none" : "block";
-  }
+// ===== OPEN TRAINER REVIEW =====
+function openTrainerReview(qNum) {
+  const panel = document.getElementById("trainerReview");
+  document.getElementById("reviewTitle").innerText = "Trainer Review – Q" + qNum;
+  document.getElementById("reviewText").innerText =
+    trainerRationale[qNum] || "Trainer rationale not yet provided.";
+  panel.style.display = "block";
 }
 </script>
 
